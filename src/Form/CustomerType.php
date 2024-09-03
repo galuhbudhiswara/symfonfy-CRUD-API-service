@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\NotNull;
 
 
@@ -18,7 +19,10 @@ class CustomerType extends AbstractType
         $builder
             ->add('email', EmailType::class, [
                 'constraints' => [
-                    new NotNull(),
+                    new NotNull([
+                       'message' => 'Email can not be empty',
+                    ]),
+                    new Email()
                 ]
             ])
             ->add('phoneNumber', TextType::class, [

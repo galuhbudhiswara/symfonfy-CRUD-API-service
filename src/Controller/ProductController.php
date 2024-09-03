@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Customer;
-use App\Form\CustomerType;
+use App\Entity\Product;
+use App\Form\ProductType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 // use Symfony\Component\Routing\Attribute\Route;
 
-class CustomerController extends AbstractApiController
+class ProductController extends AbstractApiController
 {
     private EntityManagerInterface $entityManager;
 
@@ -23,14 +23,14 @@ class CustomerController extends AbstractApiController
     // #[Route('/customer', name: 'app_customer')]
     public function index(Request $request): JsonResponse
     {
-        $customers = $this->entityManager->getRepository(Customer::class)->findAll();
+        $products = $this->entityManager->getRepository(Product::class)->findAll();
 
-        return $this->respond($customers);
+        return $this->respond($products);
     }
 
     public function create(Request $request) : JsonResponse 
     {
-        $form = $this->buildForm(CustomerType::class);
+        $form = $this->buildForm(ProductType::class);
         $form->handleRequest($request);
 
         if (!$form->isSubmitted() || !$form->isValid()) {
@@ -38,13 +38,13 @@ class CustomerController extends AbstractApiController
         }
 
         /**
-         * @var Customer $customer
+         * @var Product $customer
          */
-        $customer = $form->getData();
+        $product = $form->getData();
 
-        $this->entityManager->persist($customer);
+        $this->entityManager->persist($product);
         $this->entityManager->flush();
 
-        return $this->respond($customer);   
+        return $this->respond($product);   
     }
 }
