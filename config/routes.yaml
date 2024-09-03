@@ -23,3 +23,30 @@ product_create:
     path: /api/v1/customers
     controller: App\Controller\ProductController:create
     methods: [POST]
+
+cart_list:
+    path: /api/v1/{id}/carts
+    controller: App\Controller\CartController:show
+    methods: [GET]
+    requirements:
+        id: '\d+'
+
+cart_create:
+    path: /api/v1/carts
+    controller: App\Controller\CartController:create
+    methods: [POST]
+
+cart_update:
+    path: /api/v1/{customerId}/carts
+    controller: App\Controller\CartController:update
+    methods: [PATCH]
+    requirements:
+        customerId: '\d+'
+
+cart_delete:
+    path: /api/v1/customer/{customerId}/cart/{cartId}
+    controller: App\Controller\CartController:delete
+    methods: [DELETE]
+    requirements:
+    customerId: '\d+'
+    cartId: '\d+'
