@@ -1,0 +1,15 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+
+customer_list:
+    path: /api/v1/customers
+    controller: App\Controller\CustomerController:index
+    methods: [GET]
+
+customer_create:
+    path: /api/v1/customers
+    controller: App\Controller\CustomerController:create
+    methods: [POST]
