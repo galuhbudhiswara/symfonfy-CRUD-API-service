@@ -8,6 +8,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
 // use Symfony\Component\Routing\Attribute\Route;
 
 class CustomerController extends AbstractApiController
@@ -32,9 +34,7 @@ class CustomerController extends AbstractApiController
         $form->handleRequest($request);
 
         if (!$form->isSubmitted() || !$form->isValid()) {
-            // throw exception
-            print 'Form is not valid';
-            exit;
+            return $this->respond($form, Response::HTTP_BAD_REQUEST);
         }
 
         /**
@@ -45,6 +45,6 @@ class CustomerController extends AbstractApiController
         $this->entityManager->persist($customer);
         $this->entityManager->flush();
 
-        return $this->json($customer);    
+        return $this->respond($customer);   
     }
 }
